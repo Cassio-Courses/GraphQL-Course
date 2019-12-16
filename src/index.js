@@ -4,17 +4,21 @@ const typeDefs = gql`
 	# Pontos de entrada da sua API
 	type Query {
 		ola: String!
+		dataCerta: String!
 	}
 `;
 
 const resolvers = {
 	Query: {
 		ola() {
-			return "Basta retornar uma string";
+			return "Olá, tudo bem?";
+		},
+		dataCerta() {
+			const date = new Date();
+			return date.toTimeString();
 		}
 	}
 };
-
 const servers = new ApolloServer({ typeDefs, resolvers });
 
 servers.listen().then(({ url }) => {
