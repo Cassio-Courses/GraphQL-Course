@@ -5,23 +5,28 @@ const usuarios = [
 		nome: "Cassio",
 		email: "cassio8186@gmail.com",
 		idade: 21,
-		salario: 1200.24,
-		vip: true
+		salario_real: 1200.24,
+		vip: true,
+		familia: [
+			{ nome: "alanna", idade: 21 },
+			{ nome: "lea", idade: 50 }
+		]
 	},
 	{
 		id: 2,
 		nome: "Daniele",
 		email: "daniele@gmail.com",
 		idade: 25,
-		salario: 1400.24,
-		vip: false
+		salario_real: 1400.24,
+		vip: false,
+		familia: [{ nome: "jorge", idade: 41 }]
 	},
 	{
 		id: 3,
 		nome: "Junin",
 		email: "junin@gmail.com",
 		idade: 21,
-		salario: 19403.24,
+		salario_real: 19403.24,
 		vip: false
 	}
 ];
@@ -34,6 +39,10 @@ const typeDefs = gql`
 		desconto: Float
 		precoComDesconto: Float!
 	}
+	type PessoaFamilia {
+		nome: String!
+		idade: Int!
+	}
 	type Usuario {
 		id: ID
 		nome: String!
@@ -41,6 +50,7 @@ const typeDefs = gql`
 		idade: Int!
 		salario: Float
 		vip: Boolean
+		familia: [PessoaFamilia!]
 	}
 	# Pontos de entrada da sua API
 	type Query {
@@ -65,6 +75,9 @@ const resolvers = {
 	Usuario: {
 		salario(usuario) {
 			return usuario.salario_real * 15;
+		},
+		familia(usuario) {
+			return usuario.familia;
 		}
 	},
 	Query: {
