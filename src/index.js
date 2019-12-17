@@ -44,7 +44,7 @@ const typeDefs = gql`
 		idade: Int!
 	}
 	type Usuario {
-		id: ID
+		id: Int
 		nome: String!
 		email: String!
 		idade: Int!
@@ -60,6 +60,7 @@ const typeDefs = gql`
 		produtoEmDestaque: Produto
 		numerosMegaSena: [Int]
 		usuarios: [Usuario]!
+		usuario(id: Int): Usuario
 	}
 `;
 const resolvers = {
@@ -83,6 +84,11 @@ const resolvers = {
 	Query: {
 		usuarios() {
 			return usuarios;
+		},
+
+		usuario(usuario, params) {
+			const selecionados = usuarios.filter(usuario => usuario.id === params.id);
+			return selecionados ? selecionados[0] : null;
 		},
 		produtoEmDestaque() {
 			return { nome: "Cassio", preco: 24.41, desconto: 0.85 };
