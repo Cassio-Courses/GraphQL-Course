@@ -25,7 +25,7 @@ const usuarios = [
 		salario_real: 1400.24,
 		vip: false,
 		familia: [{ nome: "jorge", idade: 41 }],
-		perfil_id: 1
+		perfil_id: 2
 	},
 	{
 		id: 3,
@@ -34,7 +34,7 @@ const usuarios = [
 		idade: 21,
 		salario_real: 19403.24,
 		vip: false,
-		perfil_id: 1
+		perfil_id: 2
 	}
 ];
 const typeDefs = gql`
@@ -61,6 +61,7 @@ const typeDefs = gql`
 		salario: Float
 		vip: Boolean
 		familia: [PessoaFamilia!]
+		perfil: Perfil
 	}
 	# Pontos de entrada da sua API
 	type Query {
@@ -91,6 +92,10 @@ const resolvers = {
 		},
 		familia(usuario) {
 			return usuario.familia;
+		},
+		perfil(usuario) {
+			const perfil = perfis.filter(perfil => usuario.perfil_id === perfil.id);
+			return perfil[0];
 		}
 	},
 	Query: {
