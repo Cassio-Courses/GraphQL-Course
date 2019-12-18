@@ -14,7 +14,8 @@ const usuarios = [
 			{ nome: "alanna", idade: 21 },
 			{ nome: "lea", idade: 50 }
 		],
-		perfil_id: 1
+		perfil_id: 1,
+		status: "ATIVO"
 	},
 	{
 		id: 2,
@@ -24,7 +25,8 @@ const usuarios = [
 		salario_real: 1400.24,
 		vip: false,
 		familia: [{ nome: "jorge", idade: 41 }],
-		perfil_id: 2
+		perfil_id: 2,
+		status: "INATIVO"
 	},
 	{
 		id: 3,
@@ -33,7 +35,8 @@ const usuarios = [
 		idade: 21,
 		salario_real: 19403.24,
 		vip: false,
-		perfil_id: 2
+		perfil_id: 2,
+		status: "BLOQUEADO"
 	}
 ];
 module.exports = { perfis, usuarios };

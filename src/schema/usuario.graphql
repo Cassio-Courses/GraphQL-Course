@@ -11,4 +11,10 @@ type Usuario {
 	vip: Boolean
 	familia: [PessoaFamilia!]
 	perfil: Perfil
+	status: UsuarioStatus
+}
+enum UsuarioStatus {
+	ATIVO
+	INATIVO
+	BLOQUEADO
 }
