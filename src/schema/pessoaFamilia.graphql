@@ -1,4 +1,0 @@
-type PessoaFamilia {
-	nome: String!
-	idade: Int!
-}
