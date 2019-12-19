@@ -4,7 +4,7 @@ const { importSchema } = require("graphql-import");
 
 const resolvers = require("./resolvers");
 
-const schemaPath = path.resolve(__dirname, "schema", "index.graphql");
+const schemaPath = path.resolve(__dirname, "schema", "Index.graphql");
 const schema = importSchema(schemaPath);
 
 const server = new ApolloServer({
