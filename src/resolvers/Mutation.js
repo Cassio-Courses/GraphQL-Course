@@ -24,5 +24,16 @@ module.exports = {
 		}
 		const usuarioExcluido = usuarios.splice(usuarioSelecionado, 1);
 		return usuarioExcluido ? usuarioExcluido[0] : null;
+	},
+	alterarUsuario(_, args) {
+		const posicaoUsuarioSelecionado = usuarios.findIndex(
+			usuario => usuario.id === args.id
+		);
+		if (posicaoUsuarioSelecionado < 0) {
+			return null;
+		}
+		const usuarioAlterado = { ...usuarios[posicaoUsuarioSelecionado], ...args };
+		usuarios.splice(posicaoUsuarioSelecionado, 1, usuarioAlterado);
+		return usuarioAlterado;
 	}
 };
