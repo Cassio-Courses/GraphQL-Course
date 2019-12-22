@@ -1,5 +1,5 @@
-const { usuarios, proximoId } = require("../data/db");
-const retornaIndiceUsuario = require("../functions/retornaIndiceUsuario");
+const { usuarios, proximoId } = require("../../data/db");
+const { retornaIndiceUsuario } = require("../../functions");
 
 module.exports = {
 	novoUsuario(_, { dados }) {
