@@ -1,39 +1,42 @@
 const { usuarios, proximoId } = require("../data/db");
+const retornaIndiceUsuario = require("../functions/retornaIndiceUsuario");
 
 module.exports = {
-	novoUsuario(_, dadosNovoUsuario) {
+	novoUsuario(_, { dados }) {
 		const emailExistente = usuarios.some(
-			usuario => usuario.email === dadosNovoUsuario.email
+			usuario => usuario.email === dados.email
 		);
 		if (emailExistente) {
 			throw new Error("Email Cadastrado");
 		}
 		const novoUsuario = {
 			id: proximoId(),
-			...dadosNovoUsuario,
+			...dados,
 			perfil_id: 2,
 			status: "ATIVO"
 		};
 		usuarios.push(novoUsuario);
 		return novoUsuario;
 	},
-	excluirUsuario(_, { id }) {
-		const usuarioSelecionado = usuarios.findIndex(usuario => usuario.id === id);
-		if (usuarioSelecionado < 0) {
+	excluirUsuario(_, { filtro }) {
+		const indiceUsuario = retornaIndiceUsuario(usuarios, filtro);
+
+		if (indiceUsuario < 0) {
 			return null;
 		}
-		const usuarioExcluido = usuarios.splice(usuarioSelecionado, 1);
+		const usuarioExcluido = usuarios.splice(indiceUsuario, 1);
 		return usuarioExcluido ? usuarioExcluido[0] : null;
 	},
-	alterarUsuario(_, args) {
-		const posicaoUsuarioSelecionado = usuarios.findIndex(
-			usuario => usuario.id === args.id
-		);
-		if (posicaoUsuarioSelecionado < 0) {
+	alterarUsuario(_, { filtro, dados }) {
+		const indiceUsuario = retornaIndiceUsuario(usuarios, filtro);
+		if (indiceUsuario < 0) {
 			return null;
 		}
-		const usuarioAlterado = { ...usuarios[posicaoUsuarioSelecionado], ...args };
-		usuarios.splice(posicaoUsuarioSelecionado, 1, usuarioAlterado);
+		const usuarioAlterado = {
+			...usuarios[indiceUsuario],
+			...dados
+		};
+		usuarios.splice(indiceUsuario, 1, usuarioAlterado);
 		return usuarioAlterado;
 	}
 };
